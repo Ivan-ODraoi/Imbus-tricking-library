@@ -2,7 +2,7 @@
   <div>
     <div v-if="tricks">
       <div v-for="t in tricks">
-        {{"Trick : "}}{{ t.name }}
+         {{ t.name }}
         <div>
           <video width="400" controls :src="`http://localhost:5000/api/videos/${t.video}`"></video>
         </div>
