@@ -11,5 +11,7 @@ jobs:
           uses: actions/checkout@v2
         - name: Print current Directory
           run: pwd
-        - name: List Files in Directory
-          run: ls
+        - name: Check Dotnet CLI
+          run: dotnet
+        - name: Check NPM
+          run: npm
