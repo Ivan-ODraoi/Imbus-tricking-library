@@ -18,13 +18,12 @@ export const mutations = {
       Object.assign(state, initState())
     }
   },
-  setType(state, {type}){
+  setType(state, {type}) {
 
     state.type = type
-    if(type === UPLOAD_TYPE.TRICK) {
+    if (type === UPLOAD_TYPE.TRICK) {
       state.step++
-    }
-    else if(type === UPLOAD_TYPE.SUBMISSION){
+    } else if (type === UPLOAD_TYPE.SUBMISSION) {
       state.step += 2
     }
   },
@@ -32,7 +31,7 @@ export const mutations = {
     state.uploadPromise = uploadPromise;
     state.step++
   },
-  incStep(state){
+  incStep(state) {
     state.step++
   },
   reset(state) {
@@ -47,13 +46,12 @@ export const actions = {
   },
   async createTrick({state, commit, dispatch}, {trick, submission}) {
 
-if(state.type === UPLOAD_TYPE.TRICK) {
-  const createdTrick = await this.$axios.post("/api/tricks", trick);
-  submission.trickId = createdTrick.id
-}
-    const createdSubmission = await this.$axios.$post("/api/submissions", submission);
+    if (state.type === UPLOAD_TYPE.TRICK) {
+      const createdTrick = await this.$axios.$post("/api/tricks", trick);
+      submission.trickId = createdTrick.id
+    }
 
-    await dispatch("tricks/fetchTricks", null, {root: true})
-    await dispatch("submissions/fetchSubmissions", null, {root: true})
+    await this.$axios.$post("/api/submissions", submission);
+
   }
 }
